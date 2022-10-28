@@ -1,29 +1,80 @@
 package com.csse.ticketing_app;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.LinearLayoutCompat;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class TopUpActivity extends AppCompatActivity {
 
     ImageView back;
+    EditText topUPEt;
+    LinearLayoutCompat topUpBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate ( savedInstanceState );
         setContentView ( R.layout.activity_top_up );
 
+        Bundle bundle = getIntent().getExtras();
+
+        String balance = bundle.getString( "balance" );
+
+        float floatBal = Float.parseFloat( balance );
+
         back = findViewById( R.id.back_btn_top_up );
+        topUpBtn = findViewById( R.id.topup_btn );
+        topUPEt = findViewById( R.id.topup_edit_text );
 
         back.setOnClickListener( new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                onBackPressed();
+                onBackPressed ();
+            }
+        });
+
+        topUpBtn.setOnClickListener( new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                String topUpAmount = topUPEt.getText().toString();
+
+                if (Integer.parseInt(topUpAmount) < 100 || Integer.parseInt(topUpAmount) > 10000) {
+                    topUPEt.setError("Invalid Amount");
+                } else {
+                    float newBalance = floatBal + Float.parseFloat(topUpAmount);
+
+                    Map<String, Object> map = new HashMap<> ();
+                    map.put("balance", String.valueOf(newBalance));
+
+                    DatabaseReference reference = FirebaseDatabase.getInstance( "https://ticketing-app-89a17-default-rtdb.asia-southeast1.firebasedatabase.app/" ).getReference ("users");
+
+                    reference.child ( bundle.getString ( "username" ) ).updateChildren(map).addOnSuccessListener(suc -> {
+                        bundle.putString ( "balance", String.valueOf(newBalance) );
+                        topUPEt.setText( null );
+
+                        Toast.makeText( TopUpActivity.this , "Amount added successfully" , Toast.LENGTH_SHORT ).show();
+                        Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
+                        intent.putExtras ( bundle );
+                        startActivity ( intent );
+
+                    }).addOnFailureListener(er ->
+                    {
+                        Toast.makeText( TopUpActivity.this , "" + er.getMessage(), Toast.LENGTH_SHORT).show();
+                    });
+                }
             }
         });
     }

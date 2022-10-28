@@ -76,13 +76,16 @@
                     android:id="@+id/checkBox"
                     android:layout_width="100dp"
                     android:layout_height="60dp"
-                    android:background="@drawable/visa_logo" />
+                    android:button="@null"
+                    android:checked="true"
+                    android:background="@drawable/radio_btn_bg_visa" />
 
                 <RadioButton
                     android:layout_width="100dp"
                     android:layout_height="60dp"
+                    android:button="@null"
                     android:layout_marginStart="50dp"
-                    android:background="@drawable/master_logo" />
+                    android:background="@drawable/radio_btn_bg_master" />
 
             </RadioGroup>
 
@@ -114,11 +117,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Full Name"
+                    android:text="Card Holder's Name"
                     android:textSize="12sp"
                     android:textColor="#CC606060"/>
 
                 <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/add_payment_name"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginTop="5dp"
@@ -141,6 +145,7 @@
                     android:textColor="#CC606060"/>
 
                 <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/add_payment_cardNumber"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginTop="5dp"
@@ -172,6 +177,7 @@
                         android:textSize="12sp" />
 
                     <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/add_payment_expiryDate"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginTop="5dp"
@@ -198,6 +204,7 @@
                         android:textSize="12sp" />
 
                     <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/add_payment_cvv"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginTop="5dp"
@@ -222,6 +229,7 @@
                     android:textColor="#CC606060"/>
 
                 <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/add_payment_mobileNum"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginTop="5dp"
@@ -231,6 +239,7 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/payment_add_btn"
                 android:layout_width="310dp"
                 android:layout_height="45dp"
                 android:layout_marginTop="60dp"
