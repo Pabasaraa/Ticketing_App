@@ -6,11 +6,14 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class DashboardActivity extends AppCompatActivity {
 
     LinearLayoutCompat profileBtn, topUp, payment;
+    LinearLayout logoutBtn;
     TextView balance;
 
     @Override
@@ -24,6 +27,7 @@ public class DashboardActivity extends AppCompatActivity {
         topUp = findViewById( R.id.dashboard_topup_btn );
         payment = findViewById( R.id.payment_btn );
         balance = findViewById( R.id.dashboard_balance );
+        logoutBtn = findViewById( R.id.log_out );
 
         if (bundle == null ) {
             return;
@@ -57,6 +61,18 @@ public class DashboardActivity extends AppCompatActivity {
                 Intent intent = new Intent( getApplicationContext(), AddPaymentActivity.class );
                 intent.putExtras( bundle );
                 startActivity( intent );
+            }
+        });
+
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "Logged out", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+
             }
         });
 
