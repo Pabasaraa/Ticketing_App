@@ -57,7 +57,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/full_name_heading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -70,6 +70,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/circleImageView" />
 
             <TextView
+                android:id="@+id/username_heading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Since 2022"
@@ -78,7 +79,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
+                app:layout_constraintTop_toBottomOf="@+id/full_name_heading" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -113,6 +114,7 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/profile_balance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
@@ -161,6 +163,7 @@
                     android:textStyle="normal"/>
 
                 <TextView
+                    android:id="@+id/profile_full_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -183,17 +186,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:text="Email Address :"
+                    android:text="Username :"
                     android:textColor="#99606060"
                     android:textSize="14sp"
                     android:textStyle="normal"/>
 
                 <TextView
+                    android:id="@+id/profile_username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:layout_marginStart="60dp"
-                    android:text="ckodithuwakku@gmail.com"
+                    android:text="ckodithuwakku"
                     android:textSize="18sp"
                     android:textStyle="italic|bold"
                     android:textColor="#CC303030"/>
@@ -217,6 +221,7 @@
                     android:textStyle="normal"/>
 
                 <TextView
+                    android:id="@+id/profile_nic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -245,6 +250,7 @@
                     android:textStyle="normal"/>
 
                 <TextView
+                    android:id="@+id/profile_mobile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"

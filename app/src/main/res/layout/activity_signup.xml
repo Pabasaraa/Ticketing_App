@@ -62,7 +62,7 @@
             android:background="@drawable/stroke_white"/>
 
         <EditText
-            android:id="@+id/signup_email"
+            android:id="@+id/signup_username"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="28dp"
@@ -71,13 +71,13 @@
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:inputType="textEmailAddress"
-            android:hint="Email"
+            android:hint="Username"
             android:textColorHint="#B3F5F5F5"
             android:textSize="16sp"
             android:background="@drawable/stroke_white"/>
 
         <EditText
-            android:id="@+id/nic"
+            android:id="@+id/signup_nic"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="28dp"
@@ -92,7 +92,7 @@
             android:background="@drawable/stroke_white"/>
 
         <EditText
-            android:id="@+id/login_pw"
+            android:id="@+id/signup_pw"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="28dp"
@@ -107,6 +107,7 @@
             android:background="@drawable/stroke_white"/>
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/signup_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
