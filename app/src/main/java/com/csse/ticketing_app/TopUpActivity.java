@@ -1,5 +1,6 @@
 package com.csse.ticketing_app;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
@@ -11,8 +12,12 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -61,19 +66,41 @@ public class TopUpActivity extends AppCompatActivity {
 
                     DatabaseReference reference = FirebaseDatabase.getInstance( "https://ticketing-app-89a17-default-rtdb.asia-southeast1.firebasedatabase.app/" ).getReference ("users");
 
-                    reference.child ( bundle.getString ( "username" ) ).updateChildren(map).addOnSuccessListener(suc -> {
-                        bundle.putString ( "balance", String.valueOf(newBalance) );
-                        topUPEt.setText( null );
+                    Query checkUser = reference.child( bundle.getString( "username" )).child( "payment" );
 
-                        Toast.makeText( TopUpActivity.this , "Amount added successfully" , Toast.LENGTH_SHORT ).show();
-                        Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
-                        intent.putExtras ( bundle );
-                        startActivity ( intent );
+                    checkUser.addListenerForSingleValueEvent( new ValueEventListener () {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists ( )) {
 
-                    }).addOnFailureListener(er ->
-                    {
-                        Toast.makeText( TopUpActivity.this , "" + er.getMessage(), Toast.LENGTH_SHORT).show();
+                                reference.child ( bundle.getString ( "username" ) ).updateChildren(map).addOnSuccessListener(suc -> {
+                                    bundle.putString ( "balance", String.valueOf(newBalance) );
+                                    topUPEt.setText( null );
+
+                                    Toast.makeText( TopUpActivity.this , "Amount added successfully" , Toast.LENGTH_SHORT ).show();
+                                    Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
+                                    intent.putExtras ( bundle );
+                                    startActivity ( intent );
+                                    finish();
+
+                                }).addOnFailureListener(er ->
+                                {
+                                    Toast.makeText( TopUpActivity.this , "" + er.getMessage(), Toast.LENGTH_SHORT).show();
+                                });
+
+                            } else {
+                                Toast.makeText( TopUpActivity.this , "Add a card first" , Toast.LENGTH_LONG ).show();
+
+                                Intent intent = new Intent( getApplicationContext(), AddPaymentActivity.class );
+                                intent.putExtras( bundle );
+                                startActivity( intent );
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {}
                     });
+
                 }
             }
         });

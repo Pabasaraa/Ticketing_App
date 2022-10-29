@@ -59,14 +59,12 @@ public class AddPaymentActivity extends AppCompatActivity {
 
                     PaymentHelperClass newPayment = new PaymentHelperClass( nameStr, cardNumStr, expiryDateStr, cvvStr, mobileStr );
 
-                    DatabaseReference reference = FirebaseDatabase.getInstance( "https://ticketing-app-89a17-default-rtdb.asia-southeast1.firebasedatabase.app/" ).getReference("users").child(bundle.getString("username")).child(cardNumStr);
+                    DatabaseReference reference = FirebaseDatabase.getInstance( "https://ticketing-app-89a17-default-rtdb.asia-southeast1.firebasedatabase.app/" ).getReference("users").child(bundle.getString("username")).child("payment");
 
                     reference.setValue( newPayment ).addOnSuccessListener(suc -> {
                         Toast.makeText(getApplicationContext(), "Details added!", Toast.LENGTH_SHORT).show();
 
-                        Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
-                        startActivity(intent);
-                        finish();
+                        onBackPressed ();
 
                     }).addOnFailureListener ( err -> {
                         Toast.makeText(getApplicationContext(), "" + err.getMessage(), Toast.LENGTH_SHORT).show();

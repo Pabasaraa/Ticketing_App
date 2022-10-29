@@ -174,7 +174,7 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/linearLayoutCompat4"
+            android:id="@+id/journey_history_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
@@ -220,7 +220,7 @@
             android:paddingEnd="40dp"
             android:paddingBottom="15dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat4">
+            app:layout_constraintTop_toBottomOf="@+id/journey_history_btn">
 
             <ImageView
                 android:layout_width="30dp"

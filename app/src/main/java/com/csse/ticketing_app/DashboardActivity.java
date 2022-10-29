@@ -4,17 +4,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class DashboardActivity extends AppCompatActivity {
 
-    LinearLayoutCompat profileBtn, topUp, payment;
+    LinearLayoutCompat profileBtn, topUp, payment, journeyHistory;
     LinearLayout logoutBtn;
     TextView balance;
+    ImageView backBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +31,8 @@ public class DashboardActivity extends AppCompatActivity {
         payment = findViewById( R.id.payment_btn );
         balance = findViewById( R.id.dashboard_balance );
         logoutBtn = findViewById( R.id.log_out );
+        backBtn = findViewById( R.id.back_btn_dashboard );
+        journeyHistory = findViewById( R.id.journey_history_btn );
 
         if (bundle == null ) {
             return;
@@ -36,6 +41,13 @@ public class DashboardActivity extends AppCompatActivity {
 
             balance.setText( balanceFromDb );
         }
+
+        backBtn.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
         profileBtn.setOnClickListener( new View.OnClickListener() {
             @Override
@@ -55,10 +67,19 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
+        journeyHistory.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent( getApplicationContext(), JourneyHistoryActivity.class );
+                intent.putExtras( bundle );
+                startActivity( intent );
+            }
+        });
+
         payment.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent( getApplicationContext(), AddPaymentActivity.class );
+                Intent intent = new Intent( getApplicationContext(), DisplayPaymentActivity.class );
                 intent.putExtras( bundle );
                 startActivity( intent );
             }
