@@ -9,14 +9,14 @@
     android:fadingEdgeLength="150dp"
     android:requiresFadingEdge="vertical"
     android:scrollbars="none"
-    tools:context=".AddPaymentActivity">
+    tools:context=".UpdatePaymentActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/back_btn_payment"
+            android:id="@+id/back_btn_updatePayment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/back_button"
@@ -103,7 +103,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:text="Enter Details"
+                android:text="Update Details"
                 android:textColor="#303030"
                 android:textSize="16sp"
                 android:textStyle="bold"/>
@@ -122,7 +122,7 @@
                     android:textColor="#CC606060"/>
 
                 <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/add_payment_name"
+                    android:id="@+id/update_payment_name"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginTop="5dp"
@@ -149,7 +149,7 @@
                     android:textColor="#CC606060"/>
 
                 <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/add_payment_cardNumber"
+                    android:id="@+id/update_payment_cardNumber"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginTop="5dp"
@@ -185,7 +185,7 @@
                         android:textSize="12sp" />
 
                     <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/add_payment_expiryDate"
+                        android:id="@+id/update_payment_expiryDate"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginTop="5dp"
@@ -216,7 +216,7 @@
                         android:textSize="12sp" />
 
                     <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/add_payment_cvv"
+                        android:id="@+id/update_payment_cvv"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginTop="5dp"
@@ -245,7 +245,7 @@
                     android:textColor="#CC606060"/>
 
                 <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/add_payment_mobileNum"
+                    android:id="@+id/update_payment_mobileNum"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginTop="5dp"
@@ -259,12 +259,12 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/payment_add_btn"
+                android:id="@+id/payment_update_btn"
                 android:layout_width="310dp"
                 android:layout_height="45dp"
                 android:layout_marginTop="60dp"
                 android:layout_gravity="center"
-                android:text="Add"
+                android:text="Update"
                 android:background="@drawable/gradient_btn_bg_45deg"
                 android:textAllCaps="false"
                 android:textSize="16sp"

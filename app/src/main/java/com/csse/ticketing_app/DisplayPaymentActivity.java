@@ -2,11 +2,13 @@ package com.csse.ticketing_app;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +26,8 @@ public class DisplayPaymentActivity extends AppCompatActivity {
     DatabaseReference reference = FirebaseDatabase.getInstance( "https://ticketing-app-89a17-default-rtdb.asia-southeast1.firebasedatabase.app/" ).getReference ("users");
 
     TextView name, cardNum, expiryDate, cvv, mobileNumber;
+    AppCompatButton update;
+    ImageView backBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,8 @@ public class DisplayPaymentActivity extends AppCompatActivity {
         expiryDate = findViewById(R.id.display_payment_expiry_date);
         cvv = findViewById(R.id.display_payment_cvv);
         mobileNumber = findViewById(R.id.display_payment_mobile_num);
+        update = findViewById(R.id.update_displayPayment);
+        backBtn = findViewById(R.id.back_btn_displayPayment);
 
         Query checkUser = reference.child( bundle.getString( "username" )).child( "payment" );
 
@@ -72,5 +78,22 @@ public class DisplayPaymentActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {}
         });
+
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent( getApplicationContext(), UpdatePaymentActivity.class );
+                intent.putExtras( bundle );
+                startActivity( intent );
+            }
+        });
+
+        backBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
     }
 }

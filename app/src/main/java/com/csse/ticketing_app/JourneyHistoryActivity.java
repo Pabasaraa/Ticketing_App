@@ -16,13 +16,13 @@ public class JourneyHistoryActivity extends AppCompatActivity {
         super.onCreate ( savedInstanceState );
         setContentView ( R.layout.activity_journey_history );
 
-        backBtn.findViewById( R.id.back_btn_journeyHistory );
-
-        backBtn.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+//        backBtn.findViewById( R.id.back_btn_journeyHistory );
+//
+//        backBtn.setOnClickListener( new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                onBackPressed();
+//            }
+//        });
     }
 }
