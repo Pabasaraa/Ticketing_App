@@ -25,6 +25,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText userName, pw;
     Button notAMember, login;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
@@ -107,7 +108,7 @@ public class LoginActivity extends AppCompatActivity {
                         String nicFromDB = snapshot.child( userEnteredUsername ).child( "nic" ).getValue( String.class );
                         String balanceFromDB = snapshot.child( userEnteredUsername ).child( "balance" ).getValue( String.class );
 
-                        Bundle bundle = new Bundle ( );
+                        Bundle bundle = new Bundle ();
                         bundle.putString( "username" , userEnteredUsername );
                         bundle.putString( "name" , nameFromDB );
                         bundle.putString( "nic" , nicFromDB );

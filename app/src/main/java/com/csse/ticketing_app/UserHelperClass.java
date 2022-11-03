@@ -15,6 +15,14 @@ public class UserHelperClass {
         this.balance = balance;
     }
 
+    public void setUserData(String fullName , String username , String nic  , String password, String balance) {
+        this.fullName = fullName;
+        this.userName = username;
+        this.nic = nic;
+        this.password = password;
+        this.balance = balance;
+    }
+
     public String getBalance() {
         return balance;
     }
