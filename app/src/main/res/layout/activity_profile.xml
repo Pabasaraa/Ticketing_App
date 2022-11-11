@@ -263,6 +263,7 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/update_btn_profile"
                 android:layout_width="130dp"
                 android:layout_height="45dp"
                 android:layout_marginTop="50dp"
@@ -288,7 +289,7 @@
                     android:textColor="#99303030" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/delete_btn"
+                    android:id="@+id/delete_btn_profile"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="-3dp"

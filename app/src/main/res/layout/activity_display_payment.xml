@@ -210,7 +210,7 @@
                 android:textColor="#99303030" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/delete_btn"
+                android:id="@+id/delete_payment_btn"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="-3dp"

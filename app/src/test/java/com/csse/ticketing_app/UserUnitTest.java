@@ -1,9 +1,10 @@
 package com.csse.ticketing_app;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
-public class UserTestCase {
+public class UserUnitTest {
 
     @Test
     public void testAddUser() {
@@ -19,8 +20,8 @@ public class UserTestCase {
 
         UserHelperClass expectedUser = signup.getUser ( "testusername" );
 
-        Assert.assertEquals( expectedUser.getFullName(), actualUser.getFullName() );
-        Assert.assertEquals( expectedUser.getNic(), actualUser.getNic() );
-        Assert.assertEquals( expectedUser.getMobileNum(), actualUser.getMobileNum() );
+        assertEquals( expectedUser.getFullName(), actualUser.getFullName() );
+        assertEquals( expectedUser.getNic(), actualUser.getNic() );
+        assertEquals( expectedUser.getMobileNum(), actualUser.getMobileNum() );
     }
 }

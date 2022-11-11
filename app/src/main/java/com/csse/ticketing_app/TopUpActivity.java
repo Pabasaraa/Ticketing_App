@@ -77,7 +77,7 @@ public class TopUpActivity extends AppCompatActivity {
                                     bundle.putString ( "balance", String.valueOf(newBalance) );
                                     topUPEt.setText( null );
 
-                                    Toast.makeText( TopUpActivity.this , "Amount added successfully" , Toast.LENGTH_SHORT ).show();
+                                    Toast.makeText( TopUpActivity.this , "Amount added" , Toast.LENGTH_SHORT ).show();
                                     Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
                                     intent.putExtras ( bundle );
                                     startActivity ( intent );

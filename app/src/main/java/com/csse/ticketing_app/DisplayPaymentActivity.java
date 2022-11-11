@@ -19,15 +19,21 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DisplayPaymentActivity extends AppCompatActivity {
 
-    DatabaseReference reference = FirebaseDatabase.getInstance( "https://ticketing-app-89a17-default-rtdb.asia-southeast1.firebasedatabase.app/" ).getReference ("users");
+    DatabaseReference reference = FirebaseDatabase.getInstance( Constants.DB_INSTANCE ).getReference( Constants.DB_USER_REF );
 
     TextView name, cardNum, expiryDate, cvv, mobileNumber;
-    AppCompatButton update;
+    AppCompatButton update, deleteBtn;
     ImageView backBtn;
+
+    // Initialize logger
+    public static final Logger log = Logger.getLogger( DisplayPaymentActivity.class.getName() );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,18 +49,19 @@ public class DisplayPaymentActivity extends AppCompatActivity {
         mobileNumber = findViewById(R.id.display_payment_mobile_num);
         update = findViewById(R.id.update_displayPayment);
         backBtn = findViewById(R.id.back_btn_displayPayment);
+        deleteBtn = findViewById(R.id.delete_payment_btn);
 
-        Query checkUser = reference.child( bundle.getString( "username" )).child( "payment" );
+        Query checkUser = reference.child( bundle.getString( "username" )).child( Constants.DB_PAYMENT_REF );
 
         checkUser.addListenerForSingleValueEvent( new ValueEventListener () {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists ( )) {
-                    String nameFromDB = snapshot.child ( "cardHolderName" ).getValue( String.class );
-                    String cardNumFromDB = snapshot.child ( "cardNum" ).getValue( String.class );
-                    String expiryDateFromDB = snapshot.child ( "expiryDate" ).getValue( String.class );
-                    String cvvFromDB = snapshot.child ( "cvv" ).getValue( String.class );
-                    String mobileNumFromDB = snapshot.child ( "mobileNumber" ).getValue( String.class );
+                    String nameFromDB = snapshot.child( Constants.DB_CHILD_CARD_HOLDER ).getValue( String.class );
+                    String cardNumFromDB = snapshot.child( Constants.DB_CHILD_CARD_NUMBER ).getValue( String.class );
+                    String expiryDateFromDB = snapshot.child( Constants.DB_CHILD_EXPIRY_DATE ).getValue( String.class );
+                    String cvvFromDB = snapshot.child( Constants.DB_CHILD_CVV ).getValue( String.class );
+                    String mobileNumFromDB = snapshot.child( Constants.DB_CHILD_MOBILE ).getValue( String.class );
 
                     name.setText(nameFromDB);
                     cardNum.setText( cardNumFromDB );
@@ -62,7 +69,7 @@ public class DisplayPaymentActivity extends AppCompatActivity {
                     cvv.setText( cvvFromDB );
                     mobileNumber.setText( mobileNumFromDB );
                 } else {
-                    name.setText ( "You will redirect~" );
+                    name.setText ( "You will redirect" );
                     cardNum.setVisibility( View.INVISIBLE );
                     expiryDate.setVisibility( View.INVISIBLE );
                     cvv.setVisibility( View.INVISIBLE );
@@ -79,21 +86,48 @@ public class DisplayPaymentActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {}
         });
 
-        update.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent( getApplicationContext(), UpdatePaymentActivity.class );
-                intent.putExtras( bundle );
-                startActivity( intent );
-            }
-        });
+        try {
+            update.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent( getApplicationContext(), UpdatePaymentActivity.class );
+                    intent.putExtras( bundle );
+                    startActivity( intent );
+                }
+            });
+        } catch (NullPointerException e) {
+            // Logging thrown exception to the logger
+            log.log( Level.SEVERE, e.getMessage());
+        }
 
-        backBtn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+        try {
+            deleteBtn.setOnClickListener( new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    reference.child( bundle.getString( "username" )).child( Constants.DB_PAYMENT_REF ).removeValue().addOnSuccessListener ( suc -> {
+                        Toast.makeText ( DisplayPaymentActivity.this , "Deleted" , Toast.LENGTH_SHORT ).show ( );
+                        Intent intent = new Intent ( getApplicationContext (), DashboardActivity.class );
+                        startActivity ( intent );
+                        finish ();
+                    } );
+                }
+            });
+        } catch (NullPointerException e) {
+            // Logging thrown exception to the logger
+            log.log( Level.SEVERE, e.getMessage());
+        }
+
+        try {
+            backBtn.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view) {
+                    onBackPressed();
+                }
+            });
+        } catch (NullPointerException e) {
+            // Logging thrown exception to the logger
+            log.log( Level.SEVERE, e.getMessage());
+        }
 
     }
 }
