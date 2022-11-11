@@ -1,5 +1,5 @@
 package com.csse.ticketing_app;
-
+// Constants Done
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
@@ -37,7 +37,7 @@ public class DashboardActivity extends AppCompatActivity {
         if (bundle == null ) {
             return;
         } else {
-            String balanceFromDb = bundle.getString( "balance" );
+            String balanceFromDb = bundle.getString( Constants.BUNDLE_BALANCE );
 
             balance.setText( balanceFromDb );
         }

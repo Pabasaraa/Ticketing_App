@@ -1,5 +1,5 @@
 package com.csse.ticketing_app;
-
+// Constants Done
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
@@ -36,7 +36,7 @@ public class TopUpActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
 
-        String balance = bundle.getString( "balance" );
+        String balance = bundle.getString( Constants.BUNDLE_BALANCE );
 
         float floatBal = Float.parseFloat( balance );
 
@@ -62,19 +62,19 @@ public class TopUpActivity extends AppCompatActivity {
                     float newBalance = floatBal + Float.parseFloat(topUpAmount);
 
                     Map<String, Object> map = new HashMap<> ();
-                    map.put("balance", String.valueOf(newBalance));
+                    map.put( Constants.DB_CHILD_BALANCE, String.valueOf(newBalance) );
 
-                    DatabaseReference reference = FirebaseDatabase.getInstance( "https://ticketing-app-89a17-default-rtdb.asia-southeast1.firebasedatabase.app/" ).getReference ("users");
+                    DatabaseReference reference = FirebaseDatabase.getInstance( Constants.DB_INSTANCE ).getReference( Constants.DB_USER_REF );
 
-                    Query checkUser = reference.child( bundle.getString( "username" )).child( "payment" );
+                    Query checkUser = reference.child( bundle.getString( Constants.BUNDLE_USERNAME )).child( Constants.DB_PAYMENT_REF );
 
                     checkUser.addListenerForSingleValueEvent( new ValueEventListener () {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if (snapshot.exists ( )) {
 
-                                reference.child ( bundle.getString ( "username" ) ).updateChildren(map).addOnSuccessListener(suc -> {
-                                    bundle.putString ( "balance", String.valueOf(newBalance) );
+                                reference.child ( bundle.getString( Constants.BUNDLE_USERNAME ) ).updateChildren(map).addOnSuccessListener(suc -> {
+                                    bundle.putString ( Constants.BUNDLE_BALANCE, String.valueOf(newBalance) );
                                     topUPEt.setText( null );
 
                                     Toast.makeText( TopUpActivity.this , "Amount added" , Toast.LENGTH_SHORT ).show();

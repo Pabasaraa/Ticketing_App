@@ -1,5 +1,5 @@
 package com.csse.ticketing_app;
-
+//Constants Done
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -89,9 +89,9 @@ public class LoginActivity extends AppCompatActivity {
         userEnteredUsername = userName.getText().toString();
         userEnteredPw = pw.getText().toString();
 
-        DatabaseReference reference = FirebaseDatabase.getInstance( "https://ticketing-app-89a17-default-rtdb.asia-southeast1.firebasedatabase.app/" ).getReference ("users");
+        DatabaseReference reference = FirebaseDatabase.getInstance( Constants.DB_INSTANCE ).getReference (Constants.DB_USER_REF);
 
-        Query checkUser = reference.orderByChild( "userName" ).equalTo( userEnteredUsername );
+        Query checkUser = reference.orderByChild( Constants.DB_CHILD_USERNAME ).equalTo( userEnteredUsername );
 
         checkUser.addListenerForSingleValueEvent( new ValueEventListener() {
             @Override
@@ -99,21 +99,21 @@ public class LoginActivity extends AppCompatActivity {
                 if (snapshot.exists ( )) {
                     userName.setError ( null );
 
-                    String pwFromDB = snapshot.child( userEnteredUsername ).child ( "password" ).getValue ( String.class );
+                    String pwFromDB = snapshot.child( userEnteredUsername ).child ( Constants.DB_CHILD_PASSWORD ).getValue ( String.class );
 
                     if (Objects.requireNonNull( pwFromDB ).equals ( userEnteredPw )) {
                         pw.setError ( null );
 
-                        String nameFromDB = snapshot.child( userEnteredUsername ).child( "fullName" ).getValue( String.class );
-                        String nicFromDB = snapshot.child( userEnteredUsername ).child( "nic" ).getValue( String.class );
-                        String balanceFromDB = snapshot.child( userEnteredUsername ).child( "balance" ).getValue( String.class );
+                        String nameFromDB = snapshot.child( userEnteredUsername ).child( Constants.DB_CHILD_FULL_NAME ).getValue( String.class );
+                        String nicFromDB = snapshot.child( userEnteredUsername ).child( Constants.DB_CHILD_NIC ).getValue( String.class );
+                        String balanceFromDB = snapshot.child( userEnteredUsername ).child( Constants.DB_CHILD_BALANCE ).getValue( String.class );
 
                         Bundle bundle = new Bundle ();
-                        bundle.putString( "username" , userEnteredUsername );
-                        bundle.putString( "name" , nameFromDB );
-                        bundle.putString( "nic" , nicFromDB );
-                        bundle.putString( "password" , pwFromDB );
-                        bundle.putString( "balance" , balanceFromDB );
+                        bundle.putString( Constants.BUNDLE_USERNAME , userEnteredUsername );
+                        bundle.putString( Constants.BUNDLE_FULL_NAME , nameFromDB );
+                        bundle.putString( Constants.BUNDLE_NIC , nicFromDB );
+                        bundle.putString( Constants.BUNDLE_PASSWORD , pwFromDB );
+                        bundle.putString( Constants.BUNDLE_BALANCE , balanceFromDB );
 
                         Intent intent = new Intent( getApplicationContext() , HomeActivity.class );
                         intent.putExtras( bundle );

@@ -1,5 +1,5 @@
 package com.csse.ticketing_app;
-
+// Constants Done
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
@@ -43,20 +43,20 @@ public class UpdatePaymentActivity extends AppCompatActivity {
         mobileNum = findViewById( R.id.update_payment_mobileNum );
         updateBtn = findViewById( R.id.payment_update_btn );
 
-        DatabaseReference reference = FirebaseDatabase.getInstance( "https://ticketing-app-89a17-default-rtdb.asia-southeast1.firebasedatabase.app/" ).getReference ("users");
+        DatabaseReference reference = FirebaseDatabase.getInstance( Constants.DB_INSTANCE ).getReference( Constants.DB_USER_REF );
 
-        Query checkUser = reference.child( bundle.getString( "username" )).child( "payment" );
+        Query checkUser = reference.child( bundle.getString( Constants.BUNDLE_USERNAME )).child( Constants.DB_PAYMENT_REF );
 
         checkUser.addListenerForSingleValueEvent( new ValueEventListener () {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists ( )) {
 
-                    String nameFromDB = snapshot.child ( "cardHolderName" ).getValue( String.class );
-                    String cardNumFromDB = snapshot.child ( "cardNum" ).getValue( String.class );
-                    String expiryDateFromDB = snapshot.child ( "expiryDate" ).getValue( String.class );
-                    String cvvFromDB = snapshot.child ( "cvv" ).getValue( String.class );
-                    String mobileNumFromDB = snapshot.child ( "mobileNumber" ).getValue( String.class );
+                    String nameFromDB = snapshot.child ( Constants.DB_CHILD_CARD_HOLDER ).getValue( String.class );
+                    String cardNumFromDB = snapshot.child ( Constants.DB_CHILD_CARD_NUMBER ).getValue( String.class );
+                    String expiryDateFromDB = snapshot.child ( Constants.DB_CHILD_EXPIRY_DATE ).getValue( String.class );
+                    String cvvFromDB = snapshot.child ( Constants.DB_CHILD_CVV ).getValue( String.class );
+                    String mobileNumFromDB = snapshot.child ( Constants.DB_CHILD_MOBILE ).getValue( String.class );
 
                     name.setText(nameFromDB);
                     cardNum.setText( cardNumFromDB );
@@ -80,13 +80,13 @@ public class UpdatePaymentActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Map<String, Object> map = new HashMap<> ();
 
-                map.put ( "cardHolderName", Objects.requireNonNull(name.getText()).toString() );
-                map.put ( "cardNum", Objects.requireNonNull(cardNum.getText()).toString() );
-                map.put ( "expiryDate", Objects.requireNonNull(expiryDate.getText()).toString() );
-                map.put ( "cvv", Objects.requireNonNull(cvv.getText()).toString() );
-                map.put ( "mobileNumber", Objects.requireNonNull(mobileNum.getText()).toString() );
+                map.put ( Constants.DB_CHILD_CARD_HOLDER, Objects.requireNonNull(name.getText()).toString() );
+                map.put ( Constants.DB_CHILD_CARD_NUMBER, Objects.requireNonNull(cardNum.getText()).toString() );
+                map.put ( Constants.DB_CHILD_EXPIRY_DATE, Objects.requireNonNull(expiryDate.getText()).toString() );
+                map.put ( Constants.DB_CHILD_CVV, Objects.requireNonNull(cvv.getText()).toString() );
+                map.put ( Constants.DB_CHILD_MOBILE, Objects.requireNonNull(mobileNum.getText()).toString() );
 
-                reference.child(bundle.getString( "username" )).child( "payment" ).updateChildren(map).addOnSuccessListener(suc -> {
+                reference.child(bundle.getString( Constants.BUNDLE_USERNAME )).child( Constants.DB_PAYMENT_REF ).updateChildren(map).addOnSuccessListener(suc -> {
 
                     Toast.makeText( UpdatePaymentActivity.this , "Details Updated" , Toast.LENGTH_SHORT ).show();
 

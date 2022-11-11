@@ -1,5 +1,5 @@
 package com.csse.ticketing_app;
-
+// Constants Done
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
@@ -19,8 +19,7 @@ public class ProfileActivity extends AppCompatActivity {
     TextView fullName, username, nic, nameHeading, usernameHeading, mobile, balance;
     AppCompatButton deleteBtn, updateBtn;
 
-    DatabaseReference reference = FirebaseDatabase.getInstance("https://ticketing-app-89a17-default-rtdb.asia-southeast1.firebasedatabase.app/")
-            .getReference("users" );
+    DatabaseReference reference = FirebaseDatabase.getInstance(Constants.DB_INSTANCE).getReference(Constants.DB_USER_REF );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +42,10 @@ public class ProfileActivity extends AppCompatActivity {
         if (bundle == null ) {
             return;
         } else {
-            String nameFromDB = bundle.getString( "name" );
-            String usernameFromDb = bundle.getString( "username" );
-            String nicFromDB = bundle.getString( "nic" );
-            String balanceFromDb = bundle.getString( "balance" );
+            String nameFromDB = bundle.getString( Constants.BUNDLE_FULL_NAME );
+            String usernameFromDb = bundle.getString( Constants.BUNDLE_USERNAME );
+            String nicFromDB = bundle.getString( Constants.BUNDLE_NIC );
+            String balanceFromDb = bundle.getString( Constants.BUNDLE_BALANCE );
 
             nameHeading.setText( nameFromDB );
             usernameHeading.setText( usernameFromDb );
@@ -75,7 +74,7 @@ public class ProfileActivity extends AppCompatActivity {
         deleteBtn.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                reference.child(bundle.getString( "username" )).removeValue().addOnSuccessListener( suc -> {
+                reference.child(bundle.getString( Constants.BUNDLE_USERNAME )).removeValue().addOnSuccessListener( suc -> {
                     Toast.makeText ( ProfileActivity.this , "Account Deleted" , Toast.LENGTH_SHORT ).show ( );
                     Intent intent = new Intent ( getApplicationContext (), LoginActivity.class );
                     startActivity ( intent );

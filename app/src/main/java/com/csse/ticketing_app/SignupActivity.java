@@ -1,5 +1,5 @@
 package com.csse.ticketing_app;
-
+// Constants Done
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
@@ -24,27 +24,26 @@ public class SignupActivity extends AppCompatActivity {
     AppCompatButton signupBtn;
     Button alreadyAMember;
 
-    FirebaseDatabase database = FirebaseDatabase.getInstance ( "https://ticketing-app-89a17-default-rtdb.asia-southeast1.firebasedatabase.app/" );
-    DatabaseReference reference = database.getReference ("users");
+    FirebaseDatabase database = FirebaseDatabase.getInstance( Constants.DB_INSTANCE );
+    DatabaseReference reference = database.getReference( Constants.DB_USER_REF );
 
     public UserHelperClass getUser(String username) {
         UserHelperClass helperClass = new UserHelperClass();
 
-        DatabaseReference reference = FirebaseDatabase.getInstance( "https://ticketing-app-89a17-default-rtdb.asia-southeast1.firebasedatabase.app/" ).getReference ("users");
+        DatabaseReference reference = FirebaseDatabase.getInstance( Constants.DB_INSTANCE ).getReference( Constants.DB_USER_REF );
 
-        Query checkUser = reference.orderByChild( "userName" ).equalTo( username );
+        Query checkUser = reference.orderByChild( Constants.DB_CHILD_USERNAME ).equalTo( username );
 
         checkUser.addListenerForSingleValueEvent( new ValueEventListener () {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists ( )) {
-                    String pwFromDB = snapshot.child( username ).child ( "password" ).getValue ( String.class );
-                    String nameFromDB = snapshot.child( username ).child( "fullName" ).getValue( String.class );
-                    String nicFromDB = snapshot.child( username ).child( "nic" ).getValue( String.class );
-                    String balanceFromDB = snapshot.child( username ).child( "balance" ).getValue( String.class );
+                    String pwFromDB = snapshot.child( username ).child ( Constants.DB_CHILD_PASSWORD ).getValue ( String.class );
+                    String nameFromDB = snapshot.child( username ).child( Constants.DB_CHILD_FULL_NAME ).getValue( String.class );
+                    String nicFromDB = snapshot.child( username ).child( Constants.DB_CHILD_NIC ).getValue( String.class );
+                    String balanceFromDB = snapshot.child( username ).child( Constants.DB_CHILD_BALANCE ).getValue( String.class );
 
                     helperClass.setUserData(username, pwFromDB , nameFromDB, nicFromDB, balanceFromDB );
-
 
                 }
             }
@@ -58,7 +57,6 @@ public class SignupActivity extends AppCompatActivity {
 
     public void addUser(String fullName , String username , String nic  , String password, String balance) {
         DatabaseReference keyRef = reference.child ( username );
-
         UserHelperClass helperClass = new UserHelperClass ( fullName, username, nic, password, balance );
 
         keyRef.setValue ( helperClass ).addOnSuccessListener (suc -> {

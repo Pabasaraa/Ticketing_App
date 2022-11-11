@@ -1,5 +1,5 @@
 package com.csse.ticketing_app;
-
+// Constants Done
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
@@ -59,11 +59,10 @@ public class AddPaymentActivity extends AppCompatActivity {
 
                     PaymentHelperClass newPayment = new PaymentHelperClass( nameStr, cardNumStr, expiryDateStr, cvvStr, mobileStr );
 
-                    DatabaseReference reference = FirebaseDatabase.getInstance( "https://ticketing-app-89a17-default-rtdb.asia-southeast1.firebasedatabase.app/" ).getReference("users").child(bundle.getString("username")).child("payment");
+                    DatabaseReference reference = FirebaseDatabase.getInstance( Constants.DB_INSTANCE ).getReference(Constants.DB_USER_REF).child(bundle.getString(Constants.BUNDLE_USERNAME)).child(Constants.DB_PAYMENT_REF);
 
                     reference.setValue( newPayment ).addOnSuccessListener(suc -> {
                         Toast.makeText(getApplicationContext(), "Details added!", Toast.LENGTH_SHORT).show();
-
                         onBackPressed ();
 
                     }).addOnFailureListener ( err -> {

@@ -1,5 +1,5 @@
 package com.csse.ticketing_app;
-
+//Constants Done
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
@@ -51,7 +51,7 @@ public class DisplayPaymentActivity extends AppCompatActivity {
         backBtn = findViewById(R.id.back_btn_displayPayment);
         deleteBtn = findViewById(R.id.delete_payment_btn);
 
-        Query checkUser = reference.child( bundle.getString( "username" )).child( Constants.DB_PAYMENT_REF );
+        Query checkUser = reference.child( bundle.getString( Constants.BUNDLE_USERNAME )).child( Constants.DB_PAYMENT_REF );
 
         checkUser.addListenerForSingleValueEvent( new ValueEventListener () {
             @Override
@@ -104,7 +104,7 @@ public class DisplayPaymentActivity extends AppCompatActivity {
             deleteBtn.setOnClickListener( new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    reference.child( bundle.getString( "username" )).child( Constants.DB_PAYMENT_REF ).removeValue().addOnSuccessListener ( suc -> {
+                    reference.child( bundle.getString( Constants.BUNDLE_USERNAME )).child( Constants.DB_PAYMENT_REF ).removeValue().addOnSuccessListener ( suc -> {
                         Toast.makeText ( DisplayPaymentActivity.this , "Deleted" , Toast.LENGTH_SHORT ).show ( );
                         Intent intent = new Intent ( getApplicationContext (), DashboardActivity.class );
                         startActivity ( intent );

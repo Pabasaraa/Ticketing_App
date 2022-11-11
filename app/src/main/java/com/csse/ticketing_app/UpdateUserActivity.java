@@ -1,5 +1,5 @@
 package com.csse.ticketing_app;
-
+// Constants Done
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
@@ -14,13 +14,13 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 import java.util.Objects;
+import java.util.logging.XMLFormatter;
 
 public class UpdateUserActivity extends AppCompatActivity {
     AppCompatEditText username, fullName, nic, mobile;
     AppCompatButton updateBtn;
 
-    DatabaseReference reference = FirebaseDatabase.getInstance( "https://ticketing-app-89a17-default-rtdb.asia-southeast1.firebasedatabase.app/" )
-            .getReference( "users" );
+    DatabaseReference reference = FirebaseDatabase.getInstance( Constants.DB_INSTANCE ).getReference( Constants.DB_USER_REF );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +35,9 @@ public class UpdateUserActivity extends AppCompatActivity {
         
         Bundle bundle = getIntent().getExtras();
         
-        username.setText( bundle.getString( "username" ) );
-        fullName.setText( bundle.getString( "name" ) );
-        nic.setText( bundle.getString( "nic" ) );
+        username.setText( bundle.getString( Constants.BUNDLE_USERNAME ) );
+        fullName.setText( bundle.getString( Constants.BUNDLE_FULL_NAME ) );
+        nic.setText( bundle.getString( Constants.BUNDLE_NIC ) );
         mobile.setText( "+94 779 342 389" );
         
         updateBtn.setOnClickListener ( new View.OnClickListener ( ) {
@@ -45,13 +45,13 @@ public class UpdateUserActivity extends AppCompatActivity {
             public void onClick(View view) {
                 HashMap<String, Object> updatedData = new HashMap<> ();
 
-                updatedData.put( "userName", Objects.requireNonNull( username.getText() ).toString() );
-                updatedData.put( "fullName", Objects.requireNonNull( fullName.getText() ).toString() );
-                updatedData.put( "nic", Objects.requireNonNull( nic.getText() ).toString() );
+                updatedData.put( Constants.DB_CHILD_USERNAME, Objects.requireNonNull( username.getText() ).toString() );
+                updatedData.put( Constants.DB_CHILD_FULL_NAME , Objects.requireNonNull( fullName.getText() ).toString() );
+                updatedData.put( Constants.DB_CHILD_NIC, Objects.requireNonNull( nic.getText() ).toString() );
 
-                bundle.putString ( "username", username.getText().toString() );
-                bundle.putString ( "name", fullName.getText().toString() );
-                bundle.putString ( "nic", nic.getText().toString() );
+                bundle.putString ( Constants.BUNDLE_USERNAME, username.getText().toString() );
+                bundle.putString ( Constants.BUNDLE_FULL_NAME, fullName.getText().toString() );
+                bundle.putString ( Constants.BUNDLE_FULL_NAME, nic.getText().toString() );
 
                 reference.updateChildren( updatedData ).addOnSuccessListener( suc -> {
                     Toast.makeText ( UpdateUserActivity.this , "Updated" , Toast.LENGTH_SHORT ).show();
