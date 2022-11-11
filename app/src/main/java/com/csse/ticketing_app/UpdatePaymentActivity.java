@@ -1,5 +1,5 @@
 package com.csse.ticketing_app;
-// Constants Done
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
@@ -21,8 +21,13 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class UpdatePaymentActivity extends AppCompatActivity {
+
+    /** Initialize logger */
+    public static final Logger log = Logger.getLogger( DisplayPaymentActivity.class.getName() );
 
     ImageView backBtn;
     AppCompatEditText name, cardNum, expiryDate, cvv, mobileNum;
@@ -33,6 +38,7 @@ public class UpdatePaymentActivity extends AppCompatActivity {
         super.onCreate ( savedInstanceState );
         setContentView ( R.layout.activity_update_payment );
 
+        /* Get the user data extras, put by previous activity by calling the getExtras() and store them inside the bundle */
         Bundle bundle = getIntent().getExtras();
 
         backBtn = findViewById( R.id.back_btn_updatePayment );
@@ -47,6 +53,12 @@ public class UpdatePaymentActivity extends AppCompatActivity {
 
         Query checkUser = reference.child( bundle.getString( Constants.BUNDLE_USERNAME )).child( Constants.DB_PAYMENT_REF );
 
+        /*
+         * This will get the payment details of the currently logged in user if the user already have a payment in the system.
+         * and display those details in their respective editText
+         *
+         * If they do not have a payment they will redirect to Dashboard activity
+         */
         checkUser.addListenerForSingleValueEvent( new ValueEventListener () {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -75,39 +87,62 @@ public class UpdatePaymentActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {}
         });
 
-        updateBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Map<String, Object> map = new HashMap<> ();
+        /*
+         * On click of the update button, this will read all updated data from the editText fields and put them in a map.
+         *
+         * Then it will update the existing details of the database by providing the updated payment details.
+         * If the update execute successfully it will notify the user via a toast.
+         * If not, it will show the cause of the failure.
+         */
+        try {
+            updateBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Map<String, Object> map = new HashMap<> ();
 
-                map.put ( Constants.DB_CHILD_CARD_HOLDER, Objects.requireNonNull(name.getText()).toString() );
-                map.put ( Constants.DB_CHILD_CARD_NUMBER, Objects.requireNonNull(cardNum.getText()).toString() );
-                map.put ( Constants.DB_CHILD_EXPIRY_DATE, Objects.requireNonNull(expiryDate.getText()).toString() );
-                map.put ( Constants.DB_CHILD_CVV, Objects.requireNonNull(cvv.getText()).toString() );
-                map.put ( Constants.DB_CHILD_MOBILE, Objects.requireNonNull(mobileNum.getText()).toString() );
+                    map.put ( Constants.DB_CHILD_CARD_HOLDER, Objects.requireNonNull(name.getText()).toString() );
+                    map.put ( Constants.DB_CHILD_CARD_NUMBER, Objects.requireNonNull(cardNum.getText()).toString() );
+                    map.put ( Constants.DB_CHILD_EXPIRY_DATE, Objects.requireNonNull(expiryDate.getText()).toString() );
+                    map.put ( Constants.DB_CHILD_CVV, Objects.requireNonNull(cvv.getText()).toString() );
+                    map.put ( Constants.DB_CHILD_MOBILE, Objects.requireNonNull(mobileNum.getText()).toString() );
 
-                reference.child(bundle.getString( Constants.BUNDLE_USERNAME )).child( Constants.DB_PAYMENT_REF ).updateChildren(map).addOnSuccessListener(suc -> {
+                    reference.child(bundle.getString( Constants.BUNDLE_USERNAME )).child( Constants.DB_PAYMENT_REF ).updateChildren(map).addOnSuccessListener(suc -> {
 
-                    Toast.makeText( UpdatePaymentActivity.this , "Details Updated" , Toast.LENGTH_SHORT ).show();
+                        Toast.makeText( UpdatePaymentActivity.this , "Details Updated" , Toast.LENGTH_SHORT ).show();
 
-                    Intent intent = new Intent(getApplicationContext(), DisplayPaymentActivity.class);
-                    startActivity( intent );
-                    finish();
+                        Intent intent = new Intent(getApplicationContext(), DisplayPaymentActivity.class);
+                        startActivity( intent );
+                        finish();
 
-                }).addOnFailureListener(er -> {
+                    }).addOnFailureListener(er -> {
 
-                    Toast.makeText( UpdatePaymentActivity.this , "" + er.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText( UpdatePaymentActivity.this , "" + er.getMessage(), Toast.LENGTH_SHORT).show();
 
-                });
-            }
-        });
+                    });
+                }
+            });
+        } catch (NullPointerException e) {
+            // Logging thrown exception to the logger
+            log.log( Level.SEVERE, e.getMessage());
+        } catch (Exception e) {
+            // Logging thrown exception to the logger
+            log.log( Level.SEVERE, e.getMessage());
+        }
 
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+        try {
+            backBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onBackPressed();
+                }
+            });
+        } catch (NullPointerException e) {
+            // Logging thrown exception to the logger
+            log.log( Level.SEVERE, e.getMessage());
+        } catch (Exception e) {
+            // Logging thrown exception to the logger
+            log.log( Level.SEVERE, e.getMessage());
+        }
 
     }
 }

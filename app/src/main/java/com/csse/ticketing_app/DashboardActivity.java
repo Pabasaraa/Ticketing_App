@@ -1,5 +1,5 @@
 package com.csse.ticketing_app;
-// Constants Done
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
@@ -12,7 +12,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class DashboardActivity extends AppCompatActivity {
+
+    /** Initialize logger */
+    public static final Logger log = Logger.getLogger( DisplayPaymentActivity.class.getName() );
 
     LinearLayoutCompat profileBtn, topUp, payment, journeyHistory;
     LinearLayout logoutBtn;
@@ -24,6 +30,7 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate ( savedInstanceState );
         setContentView ( R.layout.activity_dashboard );
 
+        /* Get the user data extras, put by previous activity by calling the getExtras() and store them inside the bundle */
         Bundle bundle = getIntent().getExtras();
 
         profileBtn = findViewById( R.id.profile_btn );
@@ -42,60 +49,108 @@ public class DashboardActivity extends AppCompatActivity {
             balance.setText( balanceFromDb );
         }
 
-        backBtn.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+        try {
+            backBtn.setOnClickListener( new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onBackPressed();
+                }
+            });
+        } catch (NullPointerException | IllegalStateException e) {
+            // Logging thrown exception to the logger
+            log.log( Level.SEVERE, e.getMessage());
+        } catch (Exception e) {
+            // Logging thrown exception to the logger
+            log.log( Level.SEVERE, e.getMessage());
+        }
 
-        profileBtn.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent( getApplicationContext(), ProfileActivity.class );
-                intent.putExtras( bundle );
-                startActivity( intent );
-            }
-        });
+        try {
+            profileBtn.setOnClickListener( new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent( getApplicationContext(), ProfileActivity.class );
+                    intent.putExtras( bundle );
+                    startActivity( intent );
+                }
+            });
+        } catch (NullPointerException | IllegalStateException e) {
+            // Logging thrown exception to the logger
+            log.log( Level.SEVERE, e.getMessage());
+        } catch (Exception e) {
+            // Logging thrown exception to the logger
+            log.log( Level.SEVERE, e.getMessage());
+        }
 
-        topUp.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent( getApplicationContext(), TopUpActivity.class );
-                intent.putExtras( bundle );
-                startActivity( intent );
-            }
-        });
+        try {
+            topUp.setOnClickListener( new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent( getApplicationContext(), TopUpActivity.class );
+                    intent.putExtras( bundle );
+                    startActivity( intent );
+                }
+            });
+        } catch (NullPointerException | IllegalStateException e) {
+            // Logging thrown exception to the logger
+            log.log( Level.SEVERE, e.getMessage());
+        } catch (Exception e) {
+            // Logging thrown exception to the logger
+            log.log( Level.SEVERE, e.getMessage());
+        }
 
-        journeyHistory.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent( getApplicationContext(), JourneyHistoryActivity.class );
-                intent.putExtras( bundle );
-                startActivity( intent );
-            }
-        });
+        try {
+            journeyHistory.setOnClickListener( new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent( getApplicationContext(), JourneyHistoryActivity.class );
+                    intent.putExtras( bundle );
+                    startActivity( intent );
+                }
+            });
+        } catch (NullPointerException | IllegalStateException e) {
+            // Logging thrown exception to the logger
+            log.log( Level.SEVERE, e.getMessage());
+        } catch (Exception e) {
+            // Logging thrown exception to the logger
+            log.log( Level.SEVERE, e.getMessage());
+        }
 
-        payment.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent( getApplicationContext(), DisplayPaymentActivity.class );
-                intent.putExtras( bundle );
-                startActivity( intent );
-            }
-        });
+        try {
+            payment.setOnClickListener( new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent( getApplicationContext(), DisplayPaymentActivity.class );
+                    intent.putExtras( bundle );
+                    startActivity( intent );
+                }
+            });
+        } catch (NullPointerException | IllegalStateException e) {
+            // Logging thrown exception to the logger
+            log.log( Level.SEVERE, e.getMessage());
+        } catch (Exception e) {
+            // Logging thrown exception to the logger
+            log.log( Level.SEVERE, e.getMessage());
+        }
 
-        logoutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Logged out", Toast.LENGTH_SHORT).show();
+        try {
+            logoutBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(getApplicationContext(), "Logged out", Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
+                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
 
-            }
-        });
+                }
+            });
+        } catch (NullPointerException | IllegalStateException e) {
+            // Logging thrown exception to the logger
+            log.log( Level.SEVERE, e.getMessage());
+        } catch (Exception e) {
+            // Logging thrown exception to the logger
+            log.log( Level.SEVERE, e.getMessage());
+        }
 
     }
 }

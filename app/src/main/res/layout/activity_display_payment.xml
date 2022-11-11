@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="-5dp"
-        android:text="Payment"
+        android:text="@string/payment"
         android:textColor="#303030"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -49,7 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:text="Full Name :"
+                android:text="@string/full_name"
                 android:textColor="#99606060"
                 android:textSize="14sp"
                 android:textStyle="normal" />
@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:gravity="end"
-                android:text="Chamod Kodithuwakku"
+                android:text="@string/chamod_kodithuwakku"
                 android:textColor="#CC303030"
                 android:textSize="18sp"
                 android:textStyle="italic|bold" />
@@ -78,7 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:text="Card Number :"
+                android:text="@string/cn"
                 android:textColor="#99606060"
                 android:textSize="14sp"
                 android:textStyle="normal" />
@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:gravity="end"
-                android:text="4532 1302 1550 3933"
+                android:text="@string/dum_card"
                 android:textColor="#CC303030"
                 android:textSize="18sp"
                 android:textStyle="italic|bold" />
@@ -107,7 +107,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:text="Expiry Date :"
+                android:text="@string/expiry_date"
                 android:textColor="#99606060"
                 android:textSize="14sp"
                 android:textStyle="normal" />
@@ -118,7 +118,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:gravity="end"
-                android:text="02/29"
+                android:text="@string/dum_date"
                 android:textColor="#CC303030"
                 android:textSize="18sp"
                 android:textStyle="italic|bold" />
@@ -136,7 +136,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:text="CVV :"
+                android:text="@string/cv"
                 android:textColor="#99606060"
                 android:textSize="14sp"
                 android:textStyle="normal" />
@@ -147,7 +147,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:gravity="end"
-                android:text="389"
+                android:text="@string/dum_cvv"
                 android:textColor="#CC303030"
                 android:textSize="18sp"
                 android:textStyle="italic|bold" />
@@ -165,7 +165,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:text="Mobile Number :"
+                android:text="@string/mobile_num"
                 android:textColor="#99606060"
                 android:textSize="14sp"
                 android:textStyle="normal" />
@@ -176,7 +176,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:gravity="end"
-                android:text="+94 779 342 389"
+                android:text="@string/dum_phn"
                 android:textColor="#CC303030"
                 android:textSize="18sp"
                 android:textStyle="italic|bold" />
@@ -190,7 +190,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="50dp"
             android:background="@drawable/gradient_btn_bg_45deg"
-            android:text="Edit"
+            android:text="@string/edit"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="16sp"
@@ -206,7 +206,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Delete Details?"
+                android:text="@string/delete_details"
                 android:textColor="#99303030" />
 
             <androidx.appcompat.widget.AppCompatButton
@@ -215,7 +215,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="-3dp"
                 android:background="@android:color/transparent"
-                android:text="Delete"
+                android:text="@string/delete"
                 android:textAllCaps="false"
                 android:textColor="#99FF0000" />
 

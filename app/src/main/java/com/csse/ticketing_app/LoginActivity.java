@@ -1,11 +1,10 @@
 package com.csse.ticketing_app;
-//Constants Done
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,8 +18,13 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class LoginActivity extends AppCompatActivity {
+
+    /** Initialize logger */
+    public static final Logger log = Logger.getLogger( DisplayPaymentActivity.class.getName() );
 
     EditText userName, pw;
     Button notAMember, login;
@@ -36,21 +40,38 @@ public class LoginActivity extends AppCompatActivity {
         notAMember = findViewById( R.id.not_a_member_btn );
         login = findViewById( R.id.login_btn );
 
-        notAMember.setOnClickListener( new View.OnClickListener ( ) {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent( getApplicationContext (), SignupActivity.class );
-                startActivity( intent );
-                finish();
-            }
-        });
+        try {
+            notAMember.setOnClickListener( new View.OnClickListener ( ) {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent( getApplicationContext (), SignupActivity.class );
+                    startActivity( intent );
+                    finish();
+                }
+            });
+        } catch (NullPointerException e) {
+            // Logging thrown exception to the logger
+            log.log( Level.SEVERE, e.getMessage());
+        } catch (Exception e) {
+            // Logging thrown exception to the logger
+            log.log( Level.SEVERE, e.getMessage());
+        }
 
-        login.setOnClickListener( new View.OnClickListener ( ) {
-            @Override
-            public void onClick(View view) {
-                userLogin( view );
-            }
-        });
+        /* When user click on login button this onClick method will call userLogin method */
+        try {
+            login.setOnClickListener( new View.OnClickListener ( ) {
+                @Override
+                public void onClick(View view) {
+                    userLogin( view );
+                }
+            });
+        } catch (NullPointerException e) {
+            // Logging thrown exception to the logger
+            log.log( Level.SEVERE, e.getMessage());
+        } catch (Exception e) {
+            // Logging thrown exception to the logger
+            log.log( Level.SEVERE, e.getMessage());
+        }
     }
 
     private Boolean validateEmail() {
@@ -77,12 +98,24 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * This method will check whether user have entered a username and password
+     * If so, this will call the isUser() method
+     * @param view
+     */
     private void userLogin( View view ) {
         if( !validateEmail() | !validatePassword() ) {
             return;
         } else { isUser(); }
     }
 
+    /**
+     * This method get the user entered username and check whether a user available under that username in the DB. If available,
+     * it will check the password of the user in the DB with the password which was entered by the user.
+     *
+     * If those are same user will be redirected to the HomeActivity with bundled user data.
+     * If user entered data are not valid username or a password it will set an error accordingly.
+     */
     private void isUser() {
         String userEnteredUsername, userEnteredPw;
 

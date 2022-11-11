@@ -29,15 +29,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="-5dp"
-            android:text="Journey History"
+            android:text="@string/journey_history"
             android:textColor="#303030"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/guideline1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
-
-<!--Just for show-->
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
@@ -70,7 +68,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"
-                        android:text="Departure   :   "
+                        android:text="@string/departure"
                         android:textColor="#CCF5F5F5"
                         android:textSize="12sp" />
 
@@ -78,7 +76,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"
-                        android:text="Kandy"
+                        android:text=" Kandy"
                         android:textColor="@color/white"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -103,7 +101,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"
-                        android:text="Arrival   :   "
+                        android:text="@string/arrival"
                         android:textColor="#CCF5F5F5"
                         android:textSize="12sp" />
 
@@ -111,7 +109,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"
-                        android:text="Ella"
+                        android:text=" Ella"
                         android:textColor="@color/white"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -138,7 +136,7 @@
                         android:layout_gravity="bottom"
                         android:text="10/20/2022"
                         android:textColor="#CCF5F5F5"
-                        android:textSize="10sp" />
+                        android:textSize="12sp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -186,7 +184,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"
-                        android:text="Departure   :   "
+                        android:text="@string/departure"
                         android:textColor="#CCF5F5F5"
                         android:textSize="12sp" />
 
@@ -194,7 +192,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"
-                        android:text="Kandy"
+                        android:text=" Kandy"
                         android:textColor="@color/white"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -219,7 +217,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"
-                        android:text="Arrival   :   "
+                        android:text="@string/arrival"
                         android:textColor="#CCF5F5F5"
                         android:textSize="12sp" />
 
@@ -227,7 +225,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"
-                        android:text="Malabe"
+                        android:text=" Malabe"
                         android:textColor="@color/white"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -254,7 +252,7 @@
                         android:layout_gravity="bottom"
                         android:text="10/20/2022"
                         android:textColor="#CCF5F5F5"
-                        android:textSize="10sp" />
+                        android:textSize="12sp" />
 
                     <TextView
                         android:layout_width="match_parent"

@@ -103,7 +103,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:text="Enter Details"
+                android:text="@string/enter_details"
                 android:textColor="#303030"
                 android:textSize="16sp"
                 android:textStyle="bold"/>
@@ -117,7 +117,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Card Holder's Name"
+                    android:text="@string/card_holder_s_name"
                     android:textSize="12sp"
                     android:textColor="#CC606060"/>
 
@@ -144,7 +144,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Card Number"
+                    android:text="@string/card_number"
                     android:textSize="12sp"
                     android:textColor="#CC606060"/>
 
@@ -180,7 +180,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Expiration Date"
+                        android:text="@string/expiration_date"
                         android:textColor="#CC606060"
                         android:textSize="12sp" />
 
@@ -211,7 +211,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="CVV"
+                        android:text="@string/cvv"
                         android:textColor="#CC606060"
                         android:textSize="12sp" />
 
@@ -240,7 +240,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Mobile Number"
+                    android:text="@string/mobile_number"
                     android:textSize="12sp"
                     android:textColor="#CC606060"/>
 
@@ -264,7 +264,7 @@
                 android:layout_height="45dp"
                 android:layout_marginTop="60dp"
                 android:layout_gravity="center"
-                android:text="Add"
+                android:text="@string/add"
                 android:background="@drawable/gradient_btn_bg_45deg"
                 android:textAllCaps="false"
                 android:textSize="16sp"

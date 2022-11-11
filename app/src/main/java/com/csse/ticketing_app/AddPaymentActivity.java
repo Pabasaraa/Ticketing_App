@@ -1,5 +1,5 @@
 package com.csse.ticketing_app;
-// Constants Done
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
@@ -15,8 +15,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class AddPaymentActivity extends AppCompatActivity {
+
+    /** Initialize logger */
+    public static final Logger log = Logger.getLogger( DisplayPaymentActivity.class.getName() );
 
     ImageView backBtn;
     AppCompatEditText name, cardNum, expiryDate, cvv, mobileNum;
@@ -37,40 +42,66 @@ public class AddPaymentActivity extends AppCompatActivity {
         mobileNum = findViewById( R.id.add_payment_mobileNum );
         addBtn = findViewById( R.id.payment_add_btn );
 
-        backBtn.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
-
-        addBtn.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if ( !validateName() | !validateCardNum() | !validateExpiryDate() | !validateCvv() | !validateMobileNumber() ){
-                    return;
-                } else {
-                    String nameStr = Objects.requireNonNull(name.getText()).toString();
-                    String cardNumStr = Objects.requireNonNull(cardNum.getText()).toString();
-                    String expiryDateStr = Objects.requireNonNull(expiryDate.getText()).toString();
-                    String cvvStr = Objects.requireNonNull(cvv.getText()).toString();
-                    String mobileStr = Objects.requireNonNull(mobileNum.getText()).toString();
-
-                    PaymentHelperClass newPayment = new PaymentHelperClass( nameStr, cardNumStr, expiryDateStr, cvvStr, mobileStr );
-
-                    DatabaseReference reference = FirebaseDatabase.getInstance( Constants.DB_INSTANCE ).getReference(Constants.DB_USER_REF).child(bundle.getString(Constants.BUNDLE_USERNAME)).child(Constants.DB_PAYMENT_REF);
-
-                    reference.setValue( newPayment ).addOnSuccessListener(suc -> {
-                        Toast.makeText(getApplicationContext(), "Details added!", Toast.LENGTH_SHORT).show();
-                        onBackPressed ();
-
-                    }).addOnFailureListener ( err -> {
-                        Toast.makeText(getApplicationContext(), "" + err.getMessage(), Toast.LENGTH_SHORT).show();
-                    });
+        try {
+            backBtn.setOnClickListener( new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onBackPressed();
                 }
-            }
-        });
+            });
+        } catch (NullPointerException e) {
+            // Logging thrown exception to the logger
+            log.log( Level.SEVERE, e.getMessage());
+        } catch (Exception e) {
+            // Logging thrown exception to the logger
+            log.log( Level.SEVERE, e.getMessage());
+        }
+
+        try {
+            /**
+             * This method will store payment details in the paymentHelperClass and store those details on the firebase database when user clicks the add button
+             */
+            addBtn.setOnClickListener( new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    /**
+                     * Check whether user filled all the fields in the form
+                     * & whether they are valid data to submit by calling the relevant methods
+                     */
+                    if ( !validateName() | !validateCardNum() | !validateExpiryDate() | !validateCvv() | !validateMobileNumber() ){
+                        return;
+                    } else {
+                        String nameStr = Objects.requireNonNull(name.getText()).toString();
+                        String cardNumStr = Objects.requireNonNull(cardNum.getText()).toString();
+                        String expiryDateStr = Objects.requireNonNull(expiryDate.getText()).toString();
+                        String cvvStr = Objects.requireNonNull(cvv.getText()).toString();
+                        String mobileStr = Objects.requireNonNull(mobileNum.getText()).toString();
+
+                        PaymentHelperClass newPayment = new PaymentHelperClass( nameStr, cardNumStr, expiryDateStr, cvvStr, mobileStr );
+
+                        DatabaseReference reference = FirebaseDatabase.getInstance( Constants.DB_INSTANCE ).getReference(Constants.DB_USER_REF).child(bundle.getString(Constants.BUNDLE_USERNAME)).child(Constants.DB_PAYMENT_REF);
+
+                        /**
+                         * Send payment helper class which have the user entered data to the firebase database
+                         * According to status it will notify the user
+                         */
+                        reference.setValue( newPayment ).addOnSuccessListener(suc -> {
+                            Toast.makeText(getApplicationContext(), "Details added!", Toast.LENGTH_SHORT).show();
+                            onBackPressed ();
+
+                        }).addOnFailureListener ( err -> {
+                            Toast.makeText(getApplicationContext(), "" + err.getMessage(), Toast.LENGTH_SHORT).show();
+                        });
+                    }
+                }
+            });
+        } catch (NullPointerException e) {
+            // Logging thrown exception to the logger
+            log.log( Level.SEVERE, e.getMessage());
+        } catch (Exception e) {
+            // Logging thrown exception to the logger
+            log.log( Level.SEVERE, e.getMessage());
+        }
 
     }
 

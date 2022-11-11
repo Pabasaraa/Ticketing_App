@@ -1,5 +1,5 @@
 package com.csse.ticketing_app;
-// Constants Done
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
@@ -13,7 +13,13 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class ProfileActivity extends AppCompatActivity {
+
+    /** Initialize logger */
+    public static final Logger log = Logger.getLogger( DisplayPaymentActivity.class.getName() );
 
     ImageView back;
     TextView fullName, username, nic, nameHeading, usernameHeading, mobile, balance;
@@ -21,11 +27,17 @@ public class ProfileActivity extends AppCompatActivity {
 
     DatabaseReference reference = FirebaseDatabase.getInstance(Constants.DB_INSTANCE).getReference(Constants.DB_USER_REF );
 
+    /**
+     * onCreate this method will extract the user details from the bundle and display in the respective TextView by using setText() method.
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate ( savedInstanceState );
         setContentView ( R.layout.activity_profile );
 
+        /* Get the user data extras, put by previous activity by calling the getExtras() and store them inside the bundle */
         Bundle bundle = getIntent().getExtras();
 
         back = findViewById( R.id.back_btn_profile );
@@ -55,32 +67,59 @@ public class ProfileActivity extends AppCompatActivity {
             balance.setText( balanceFromDb );
         }
 
-        back.setOnClickListener( new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+        try {
+            back.setOnClickListener( new View.OnClickListener(){
+                @Override
+                public void onClick(View view) {
+                    onBackPressed();
+                }
+            });
+        } catch (NullPointerException e) {
+            // Logging thrown exception to the logger
+            log.log( Level.SEVERE, e.getMessage());
+        } catch (Exception e) {
+            // Logging thrown exception to the logger
+            log.log( Level.SEVERE, e.getMessage());
+        }
 
-        updateBtn.setOnClickListener ( new View.OnClickListener ( ) {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent ( getApplicationContext (), UpdateUserActivity.class );
-                intent.putExtras ( bundle );
-                startActivity ( intent );
-            }
-        } );
-
-        deleteBtn.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                reference.child(bundle.getString( Constants.BUNDLE_USERNAME )).removeValue().addOnSuccessListener( suc -> {
-                    Toast.makeText ( ProfileActivity.this , "Account Deleted" , Toast.LENGTH_SHORT ).show ( );
-                    Intent intent = new Intent ( getApplicationContext (), LoginActivity.class );
+        /* Redirect user to the update page on click of the button. */
+        try {
+            updateBtn.setOnClickListener ( new View.OnClickListener ( ) {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent ( getApplicationContext (), UpdateUserActivity.class );
+                    intent.putExtras ( bundle );
                     startActivity ( intent );
                     finish ();
-                });
-            }
-        });
+                }
+            } );
+        } catch (NullPointerException e) {
+            // Logging thrown exception to the logger
+            log.log( Level.SEVERE, e.getMessage());
+        } catch (Exception e) {
+            // Logging thrown exception to the logger
+            log.log( Level.SEVERE, e.getMessage());
+        }
+
+        /* Delete the user profile from the DB and redirect the user to the login page. */
+        try {
+            deleteBtn.setOnClickListener( new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    reference.child(bundle.getString( Constants.BUNDLE_USERNAME )).removeValue().addOnSuccessListener( suc -> {
+                        Toast.makeText ( ProfileActivity.this , "Account Deleted" , Toast.LENGTH_SHORT ).show ( );
+                        Intent intent = new Intent ( getApplicationContext (), LoginActivity.class );
+                        startActivity ( intent );
+                        finish ();
+                    });
+                }
+            });
+        } catch (NullPointerException e) {
+            // Logging thrown exception to the logger
+            log.log( Level.SEVERE, e.getMessage());
+        } catch (Exception e) {
+            // Logging thrown exception to the logger
+            log.log( Level.SEVERE, e.getMessage());
+        }
     }
 }
