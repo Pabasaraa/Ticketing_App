@@ -58,13 +58,13 @@ public class AddPaymentActivity extends AppCompatActivity {
         }
 
         try {
-            /**
+            /*
              * This method will store payment details in the paymentHelperClass and store those details on the firebase database when user clicks the add button
              */
             addBtn.setOnClickListener( new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    /**
+                    /*
                      * Check whether user filled all the fields in the form
                      * & whether they are valid data to submit by calling the relevant methods
                      */
@@ -81,7 +81,7 @@ public class AddPaymentActivity extends AppCompatActivity {
 
                         DatabaseReference reference = FirebaseDatabase.getInstance( Constants.DB_INSTANCE ).getReference(Constants.DB_USER_REF).child(bundle.getString(Constants.BUNDLE_USERNAME)).child(Constants.DB_PAYMENT_REF);
 
-                        /**
+                        /*
                          * Send payment helper class which have the user entered data to the firebase database
                          * According to status it will notify the user
                          */

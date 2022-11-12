@@ -6,6 +6,13 @@ plugins {
 android {
     compileSdk 32
 
+    testOptions {
+        unitTests.returnDefaultValues = true
+        unitTests.all {
+            useJUnitPlatform()
+        }
+    }
+
     defaultConfig {
         applicationId "com.csse.ticketing_app"
         minSdk 21
@@ -34,14 +41,12 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.google.firebase:firebase-database:20.1.0'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
-    implementation 'androidx.test.ext:junit:1.1.4'
 
     testImplementation "androidx.arch.core:core-testing:2.1.0"
-    // Required -- JUnit 4 framework
-    testImplementation "junit:junit:4.13.2"
-    // Optional -- Mockito framework
-    testImplementation "org.mockito:mockito-core:4.2.0"
-    // Optional -- Mockk framework
-    testImplementation "io.mockk:mockk:1.13.2"
-    androidTestImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.powermock:powermock:1.6.5'
+    testImplementation 'org.powermock:powermock-module-junit4:1.6.5'
+    testImplementation 'org.powermock:powermock-api-mockito:1.6.5'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
+
 }

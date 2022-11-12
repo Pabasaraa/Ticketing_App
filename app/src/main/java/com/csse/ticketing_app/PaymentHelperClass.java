@@ -1,5 +1,18 @@
 package com.csse.ticketing_app;
 
+import android.content.Intent;
+import android.view.View;
+
+import androidx.annotation.NonNull;
+
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
 public class PaymentHelperClass {
 
     private String cardHolderName, cardNum, expiryDate, cvv, mobileNumber;
@@ -52,5 +65,57 @@ public class PaymentHelperClass {
 
     public void setMobileNumber(String mobileNumber) {
         this.mobileNumber = mobileNumber;
+    }
+
+    public PaymentHelperClass getPaymentDetails(String username) {
+        PaymentHelperClass helperClass = new PaymentHelperClass();
+        DatabaseReference reference = FirebaseDatabase.getInstance( Constants.DB_INSTANCE ).getReference( Constants.DB_USER_REF );
+        Query checkUser = reference.child( username ).child( Constants.DB_PAYMENT_REF );
+
+        checkUser.addListenerForSingleValueEvent( new ValueEventListener () {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists ( )) {
+                    String nameFromDB = snapshot.child( Constants.DB_CHILD_CARD_HOLDER ).getValue( String.class );
+                    String cardNumFromDB = snapshot.child( Constants.DB_CHILD_CARD_NUMBER ).getValue( String.class );
+                    String expiryDateFromDB = snapshot.child( Constants.DB_CHILD_EXPIRY_DATE ).getValue( String.class );
+                    String cvvFromDB = snapshot.child( Constants.DB_CHILD_CVV ).getValue( String.class );
+                    String mobileNumFromDB = snapshot.child( Constants.DB_CHILD_MOBILE ).getValue( String.class );
+
+                    helperClass.setCardHolderName ( nameFromDB );
+                    helperClass.setCardNum ( cardNumFromDB );
+                    helperClass.setExpiryDate ( expiryDateFromDB );
+                    helperClass.setCvv ( cvvFromDB );
+                    helperClass.setMobileNumber ( mobileNumFromDB );
+
+
+                } else {
+                    return;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        });
+        return helperClass;
+    }
+
+    public void addPaymentDetails(PaymentHelperClass helperClass) {
+        this.cardHolderName = helperClass.getCardHolderName();
+        this.cardNum = helperClass.getCardNum();
+        this.expiryDate = helperClass.getExpiryDate();
+        this.cvv = helperClass.getCvv();
+        this.mobileNumber = helperClass.getMobileNumber();
+
+        addData(helperClass);
+    }
+
+    public void addData(PaymentHelperClass helperClass) {
+        if (helperClass != null){
+            return;
+        }else {
+            DatabaseReference reference = FirebaseDatabase.getInstance( Constants.DB_INSTANCE ).getReference( Constants.DB_PAYMENT_REF );
+            reference.setValue( helperClass );
+        }
     }
 }

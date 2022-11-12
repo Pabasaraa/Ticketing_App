@@ -14,14 +14,14 @@ public class UserUnitTest {
         String pwStr = "abcabc";
         String balanceStr = "1000.00";
 
-//        UserHelperClass actualUser = new UserHelperClass ( nameStr, usernameStr, nicStr, pwStr, balanceStr );
-//        SignupActivity signup = new SignupActivity ();
-//        signup.addUser( nameStr, usernameStr, nicStr, pwStr, balanceStr );
-//
-//        UserHelperClass expectedUser = signup.getUser ( "testusername" );
+        UserHelperClass actualUser = new UserHelperClass ( nameStr, usernameStr, nicStr, pwStr, balanceStr );
+        SignupActivity signup = new SignupActivity ();
+        signup.addUser( nameStr, usernameStr, nicStr, pwStr, balanceStr );
 
-        assertEquals( "Hii", "Hii" );
-        assertEquals( "Hii", "Hii" );
-//        assertEquals( expectedUser.getMobileNum(), actualUser.getMobileNum() );
+        UserHelperClass expectedUser = signup.getUser ( "testusername" );
+
+        assertEquals( expectedUser.getFullName(), actualUser.getFullName() );
+        assertEquals( expectedUser.getNic(), actualUser.getNic() );
+        assertEquals( expectedUser.getMobileNum(), actualUser.getMobileNum() );
     }
 }
