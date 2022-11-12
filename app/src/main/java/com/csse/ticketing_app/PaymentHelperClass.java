@@ -118,4 +118,28 @@ public class PaymentHelperClass {
             reference.setValue( helperClass );
         }
     }
+
+    public Boolean validateCardNumber ( String card ) {
+
+        if (card.length () > 16){
+            return false;
+        } else if (card.isEmpty ()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public Boolean validateCvv ( String cvv ) {
+
+        if (cvv.length () > 3){
+            return false;
+        } else if (cvv.length () < 3) {
+           return false;
+        } else if (cvv.length () == 3) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
